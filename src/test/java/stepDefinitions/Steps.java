@@ -2,6 +2,8 @@ package stepDefinitions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.Assert.*;				
+import org.junit.Test;	
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,48 +14,52 @@ public class Steps {
 	public WebDriver driver;
 	public MoviePage mp;
 
-	@Given("user opens browser")
+	@Given("^user opens browser$")
 	public void user_opens_browser() {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//Drivers/chromedriver.exe");
-		mp = new MoviePage(driver);
 		driver = new ChromeDriver();
+		mp = new MoviePage(driver);
 	}
-	
 
-	@When("user opens url {string}")
+	@When("^user opens url \"([^\"]*)\"$")
 	public void user_opens_url(String url) {
 		driver.get(url);
+
 	}
 
-	@Then("user can search movie tittle as {string}")
-	public void user_can_search_movie_tittle_as(String movieTitle) {
+	@Then("user can search movie tittle as \"([^\"]*)\" and click search button")
+	public void user_can_search_movie_tittle_as_and_click_search_button(String movieTitle) {
 		mp.search_movie_title(movieTitle);
-	}
-
-	@Then("user can select the suggestions muvie")
-	public void user_can_select_the_suggestions_muvie() {
-		mp.selectSeggestionsMovie();
-	}
-
-	@Then("title of movie should be {string}")
-	public void title_of_movie_should_be(String title) { // String expected=title;
-		System.out.println(title);
+		mp.clickOnSearchBtn();
+		String actualValue=mp.getMovieTitle();
+		String axpectedValue="Loki";
+		assertEquals(actualValue, axpectedValue);
 
 	}
 
-	@Then("movie top cast should be")
-	public void movie_top_cast_should_be() {
-		mp.getTheTopMovieCast();
+	@Then("user can click first link of movie title")
+	public void user_can_click_first_link_of_movie_title() {
+		mp.clickOnFirstLinkOfMovieTitle();
+		String actualValue=mp.getCastAndCrewText();
+		String axpectedValue="Cast & crew";
+		assertEquals(actualValue, axpectedValue);
 	}
 
-	@Then("movie details page is")
-	public void movie_details_page_is() {
-
+	@Then("click on cast link and verify movie cast section")
+	public void click_on_cast_link_and_verify_movie_cast_section() throws InterruptedException {
+		//wait(5);
+		mp.clickOnCastLink();
+		String actualValue=mp.verifyHeaderOfterClickingCast();
+		String axpectedValue="Full Cast & Crew";
+		assertEquals(actualValue, axpectedValue);
 	}
 
-	@Then("close brouser")
-	public void close_brouser() {
-		driver.quit();
+	@Then("verify movie plot section")
+	public void verify_movie_plot_section() {
+		mp.clickOnShowMore();
+		String actualValue=mp.getStoryLine();
+		String axpectedValue="Storyline";
+		assertEquals(actualValue, axpectedValue);
 	}
-	
+
 }

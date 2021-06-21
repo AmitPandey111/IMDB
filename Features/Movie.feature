@@ -1,11 +1,11 @@
 Feature: Movie Enthusiast
 
-  Scenario Outline: 
+  Scenario: 
   
     Given user opens browser
     When user opens url "https://www.imdb.com/"
-    Then user can search movie tittle as "Loki"
-    Then user can select the suggestions muvie
-    Then movie top cast should be "Tom Hiddleston"
-    Then movie details page is 
-    Then close brouser
+    Then user can search movie tittle as "Loki" and click search button
+    Then user can click first link of movie title
+    Then click on cast link and verify movie cast section 
+    Then verify movie plot section 
+    

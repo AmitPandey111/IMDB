@@ -7,7 +7,7 @@ import cucumber.api.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = ".//Features/Movie.feature",
+		features = "C:\\Users\\amitp\\eclipse-workspace\\Movie_Cucumber\\Features",
 		glue="stepDefinitions",
 		dryRun =false,
 		monochrome =true,
