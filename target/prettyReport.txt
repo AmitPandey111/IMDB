@@ -1,0 +1,11 @@
+Feature: Login
+
+  Scenario Outline: check login is successful  with credentials.              # Login.feature:3
+    Given user opens browser
+    When user opens url "http://admin-demo.nopcommerce.com/login"
+    And user enter email as "admin@yourstore.com" and passwod as "admin"
+    And click on login
+    Then Then page tittle should be  "Dashboard / nopCommerce administration"
+    When user click on log out link
+    Then page tittle should be "Your store. Login"
+    And close brouser
